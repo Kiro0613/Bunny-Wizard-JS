@@ -1,0 +1,22 @@
+html{
+    font-family: 'Aclonica';
+    font-size: 24px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    align-items: center;
+    margin: auto;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+#gameWrapper{
+    background-color: brown;
+    border: 2px solid #303030;
+}
