@@ -1,26 +1,43 @@
 var gameState;
-var outputArea = document.getElementById("outText");
+var yesList = ["y", "yes", "1"];
+var noList = ["n", "no", "0"];
 
 var input = {
-	val : function(){return document.getElementById("input").value;},
-	clear : function(){document.getElementById("input").value = "";},
+	textBox : document.getElementById("input"),
+	get : function(e){
+		if (e.key === 'Enter') {
+			input.text = input.textBox.value;
+			output.write(input.text);
+			gameState.run(parseInput());
+			input.clear();
+		}
+	},
+	text : "",
+	clear : function(){input.textBox.value = "";}
+}
+
+var output = {
+	textBox : document.getElementById("output"),
 	write : function(text){
-		outputArea.innerHTML+="<br>"+text;
-		outputArea.scrollTop = outputArea.scrollHeight;
+		output.textBox.innerHTML+="<br>"+text;
+		output.textBox.scrollTop = output.textBox.scrollHeight;
 	}
 }
 
-function getInput(event){
-	var x = event.which || event.keyCode;
-	if(x == 13){
-		input.write(input.val());
-		parseInput();
-		input.clear();
-	}
-}
+input.textBox.addEventListener('keypress', function (e){input.get(e)});
 
 function parseInput(){
-	gameState.run(input.val())
+	if(gameState.inputType == 0){
+		if(yesList.indexOf(input.text) != -1){
+			return 1;
+		} else if(noList.indexOf(input.text) != -1){
+			return 0;
+		} else {
+			return -1;
+		}
+	}
+	
+	return input.text;
 }
 
 function changeRoomImg(imgSrc){
@@ -32,6 +49,10 @@ function changePlrImg(imgSrc){
 }
 
 function init(){
-	gameState = gameEvent.askName;
-	gameState.run()
+	gameState = gameEvent.name.ask;
+	gameState.run();
+}
+
+var plr = {
+	name : ""
 }
