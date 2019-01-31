@@ -1,6 +1,4 @@
 var gameState;
-var yesList = ["y", "yes", "1"];
-var noList = ["n", "no", "0"];
 
 var input = {
 	textBox : document.getElementById("input"),
@@ -8,7 +6,7 @@ var input = {
 		if (e.key === 'Enter') {
 			input.text = input.textBox.value;
 			output.write(input.text);
-			gameState.run(parseInput());
+			gameState();
 			input.clear();
 		}
 	},
@@ -26,20 +24,6 @@ var output = {
 
 input.textBox.addEventListener('keypress', function (e){input.get(e)});
 
-function parseInput(){
-	if(gameState.inputType == 0){
-		if(yesList.indexOf(input.text) != -1){
-			return 1;
-		} else if(noList.indexOf(input.text) != -1){
-			return 0;
-		} else {
-			return -1;
-		}
-	}
-	
-	return input.text;
-}
-
 function changeRoomImg(imgSrc){
 	document.getElementById("roomImg").style.backgroundImage = "url('img/"+imgSrc+".png')";
 }
@@ -50,9 +34,10 @@ function changePlrImg(imgSrc){
 
 function init(){
 	gameState = gameEvent.name.ask;
-	gameState.run();
+	gameState();
 }
 
 var plr = {
-	name : ""
+	name : "",
+	race : ""
 }
