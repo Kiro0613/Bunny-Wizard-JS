@@ -37,24 +37,24 @@ var gameEvent = {
 		get : function(){
 			choices = [
 				["1","bunny","rabbit","bun"],
-				["2","human"],
+				["2","human","person","homo sapien"],
 				["3","elf"],
 				["4","none of your business"]
 			];
 			switch(parseInput(3)){
 				case 1:
 					output.write("Ah, so you're a Bunny?");
-					plr.race = "Bunny";
+					plr = new Char(plr.name, "Bunny", 20, 15, 4, 3, 5, 8, 5)
 					gameState = gameEvent.race.confirm;
 					break;
 				case 2:
 					output.write("You're a Human, then?");
-					plr.race = "Human";
+					plr = new Char(plr.name, "Human", 25, 10, 6, 2, 8, 3, 4);
 					gameState = gameEvent.race.confirm;
 					break;
 				case 3:
 					output.write("You are an Elf?")
-					plr.race = "Elf";
+					plr = new Char(plr.name, "Elf", 15, 20, 3, 4, 4, 5, 7);
 					gameState = gameEvent.race.confirm;
 					break;
 				case 4:
@@ -68,7 +68,7 @@ var gameEvent = {
 			}
 		},
 		custom : function(){
-			plr.race = parseInput(2);
+			plr = new Char(plr.name, parseInput(2), 25, 10, 6, 2, 8, 3, 4);
 			input.text = "1";
 			gameState = gameEvent.race.confirm;
 			gameState();
@@ -93,7 +93,7 @@ var gameEvent = {
 			switch(parseInput(0)){
 				case 1:
 					output.write("Then your journey begins!");
-					gameState = gameEvent.race.finalConfirm;
+					window.setTimeout(gameEvent.enterCastle.start(), 7500);
 					break;
 				case 0:
 					output.write("From the top then, shall we?");
@@ -105,16 +105,22 @@ var gameEvent = {
 					gameState = gameEvent.race.finalConfirm;
 			}
 		}
+	},
+	enterCastle : {
+		start : function(){
+			changeRoomImg("0");
+			changePlrImg(plr.race+"_ph");
+			output.write("You stand outside the fortress of the dreaded Icrberg Dragon.");
+		}
 	}
 };
-
 
 var yesList = ["y", "yes", "1"];
 var noList = ["n", "no", "0"];
 
 function parseInput(type){
 	if(type == 0){
-		return yesList.indexOf(input.text) != -1 ? 1 : noList.indexOf(input.text) != -1  ? 0 : -1;
+		return yesList.indexOf(input.textLower) != -1 ? 1 : noList.indexOf(input.textLower) != -1  ? 0 : -1;
 	} else if(type == 1){
 		//Regex tests for int
 		return /^\d+$/g.test(input.text) ? input.text : -1;
@@ -122,7 +128,7 @@ function parseInput(type){
 		return input.text;
 	} else if(type == 3){
 		for(i=0;i<choices.length;i++){
-			if(choices[i].indexOf(input.text) != -1){
+			if(choices[i].indexOf(input.textLower) != -1){
 				return i+1;
 			}
 		}
