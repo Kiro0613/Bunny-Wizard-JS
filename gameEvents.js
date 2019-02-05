@@ -2,7 +2,7 @@
 var gameEvent = {
 	name : {
 		ask : function(){
-			output.write("Greetings, Hero! What is your name?");
+			output.write("Greetings, Hero! What is your name?", 50, false);
 			gameState = gameEvent.name.get;
 		},
 		get : function(){
@@ -31,7 +31,7 @@ var gameEvent = {
 	race : {
 		ask : function(){
 			output.write("Well, "+plr.name+", err... what are you?");
-			output.write("1. Bunny  2. Human  3. Elf  4. None of your business!");
+			output.write("1. Bunny  2. Human  3. Elf  4. None of your business!", 0);
 			gameState = gameEvent.race.get;
 		},
 		get : function(){
@@ -44,21 +44,22 @@ var gameEvent = {
 			switch(parseInput(3)){
 				case 1:
 					output.write("Ah, so you're a Bunny?");
-					plr = new Char(plr.name, "Bunny", 20, 15, 4, 3, 5, 8, 5)
+					plr = new Char(char.bunny);
 					gameState = gameEvent.race.confirm;
 					break;
 				case 2:
 					output.write("You're a Human, then?");
-					plr = new Char(plr.name, "Human", 25, 10, 6, 2, 8, 3, 4);
+					plr = new Char(char.human);
 					gameState = gameEvent.race.confirm;
 					break;
 				case 3:
 					output.write("You are an Elf?")
-					plr = new Char(plr.name, "Elf", 15, 20, 3, 4, 4, 5, 7);
+					plr = new Char(char.elf);
 					gameState = gameEvent.race.confirm;
 					break;
 				case 4:
 					output.write("Forgive my intrusion. What is it that you are called?")
+					plr = new Char(char.human);
 					gameState = gameEvent.race.custom;
 					break;
 				case -1:
@@ -68,7 +69,7 @@ var gameEvent = {
 			}
 		},
 		custom : function(){
-			plr = new Char(plr.name, parseInput(2), 25, 10, 6, 2, 8, 3, 4);
+			plr.race = parseInput(2);
 			input.text = "1";
 			gameState = gameEvent.race.confirm;
 			gameState();
@@ -93,7 +94,16 @@ var gameEvent = {
 			switch(parseInput(0)){
 				case 1:
 					output.write("Then your journey begins!");
-					window.setTimeout(gameEvent.enterCastle.start(), 7500);
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					window.setTimeout(function(){
+						gameEvent.enterCastle.start()
+					}, 4000)
 					break;
 				case 0:
 					output.write("From the top then, shall we?");
@@ -110,15 +120,20 @@ var gameEvent = {
 		start : function(){
 			changeRoomImg("0");
 			changePlrImg(plr.race+"_ph");
-			output.write("You stand outside the fortress of the dreaded Icrberg Dragon.");
+			output.write("You stand outside the fortress of the dreaded Iceberg Dragon.");
 		}
 	}
 };
+
+function start(){
+	setTimeout(function(){gameEvent.enterCastle.start()}, 7500);
+}
 
 var yesList = ["y", "yes", "1"];
 var noList = ["n", "no", "0"];
 
 function parseInput(type){
+	input.textLower = input.text.toLowerCase();
 	if(type == 0){
 		return yesList.indexOf(input.textLower) != -1 ? 1 : noList.indexOf(input.textLower) != -1  ? 0 : -1;
 	} else if(type == 1){
@@ -137,14 +152,3 @@ function parseInput(type){
 		throw new Error("Game event has no input type");
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

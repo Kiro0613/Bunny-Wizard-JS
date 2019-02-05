@@ -8,13 +8,12 @@
     
     <body onload="init()">
         <div id="pageHeader" style="margin: 16px; margin-bottom: 24px;">JOLGames: Bunny Wizard</div>
-        <div id="gameWrapper" class="wrapper" style="width: 820px; height: 480px;">
+        <div id="gameWrapper" class="wrapper" style="width: 820px; height: 520px;">
             <div id="roomImg" style="width: 820px; height: 325px; min-height: 325px;">
                 <img id="plrImg" style="width: 820px; height: 325px; min-height: 325px;">
             </div>
             <div id="textbox" class="wrapper">
                 <div id="output" style="background-color: #EEEEEE; overflow-y: scroll;">
-					<br/><br/><br/><br/>
 				</div>
                 <input id="input" type="text">
             </div>
