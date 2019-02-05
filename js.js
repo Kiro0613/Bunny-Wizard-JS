@@ -18,9 +18,33 @@ var input = {
 
 var output = {
 	textBox : document.getElementById("output"),
-	write : function(text){
-		output.textBox.innerHTML+="<br>"+text;
+	write : function(text, doBreak){
+		if(doBreak != false){output.break();}
+		output.textBox.innerHTML += text;
 		output.textBox.scrollTop = output.textBox.scrollHeight;
+		
+	},
+	writeBuffer : "",
+	writeSlow : function(text, speed, doBreak){
+		if(doBreak != false){output.break();}
+		if(speed == null){
+			speed = 50;
+		}
+		writeBuffer = text;
+		slowWriter = setInterval(function(){
+			if(writeBuffer.length > 0){
+				output.textBox.innerHTML += writeBuffer.charAt(0);
+				output.textBox.scrollTop = output.textBox.scrollHeight;
+				writeBuffer = writeBuffer.slice(1);
+			} else {
+				clearInterval(slowWriter);
+				console.log("here");
+			}
+		}, speed);
+		return true;
+	},
+	break : function(){
+		output.textBox.innerHTML += "<br/>";
 	},
 	clear : function(wipe){	//false: push text w/ <br/> - true: wipe all text
 		if(wipe){
@@ -39,7 +63,7 @@ function changeRoomImg(imgSrc){
 }
 
 function changePlrImg(imgSrc){
-	document.getElementById("plrImg").src = "img/"+imgSrc+".png";
+	document.getElementById("plrImg").src = plr.img;
 }
 
 function init(){
@@ -47,19 +71,62 @@ function init(){
 	gameState();
 }
 
-function Char(name, race, hp, mp, atk, def, spd, int, stl){
-	this.name = name;
-	this.race = race;
-	this.hp = hp;
-	this.hpmax = hp;
-	this.mp = mp;
-	this.mpmax = mp;
-	this.atk = atk;
-	this.def = def;
-	this.spd = spd;
-	this.int = int;
-	this.stl = stl;
+function Char(base){
+	this.name = plr.name;
+	this.race = base.race;
+	this.hp = base.hp;
+	this.hpmax = base.hp;
+	this.mp = base.mp;
+	this.mpmax = base.mp;
+	this.atk = base.atk;
+	this.def = base.def;
+	this.spd = base.spd;
+	this.int = base.int;
+	this.stl = base.stl;
+	this.img = base.img;
 	this.canMove = false;
+}
+
+var char = {
+	bunny : {
+		name : "",
+		race : "Bunny",
+		hp : 20,
+		mp : 15,
+		atk: 4,
+		def : 3,
+		spd : 5,
+		int : 8,
+		stl : 5,
+		img : "img/bunny_ph.png",
+		canMove : false
+	},
+	human : {
+		name : "",
+		race : "Human",
+		hp : 25,
+		mp : 10,
+		atk: 6,
+		def : 2,
+		spd : 8,
+		int : 3,
+		stl : 4,
+		img : "img/human_ph.png",
+		canMove : false
+	},
+	elf : {
+		name : "",
+		race : "Elf",
+		hp : 15,
+		mp : 20,
+		atk: 3,
+		def : 4,
+		spd : 4,
+		int : 5,
+		stl : 7,
+		img : "img/elf_ph.png",
+		canMove : false
+	}
 }
 
 var plr = {
