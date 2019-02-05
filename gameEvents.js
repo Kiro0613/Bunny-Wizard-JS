@@ -2,36 +2,36 @@
 var gameEvent = {
 	name : {
 		ask : function(){
-			output.writeSlow("Greetings, Hero! What is your name?");
+			output.write("Greetings, Hero! What is your name?");
 			gameState = gameEvent.name.get;
 		},
 		get : function(){
 			action = parseInput(2);
 			plr.name = action;
-			output.writeSlow("Ah, so your name is "+plr.name+"?");
+			output.write("Ah, so your name is "+plr.name+"?");
 			gameState = gameEvent.name.confirm;
 		},
 		confirm : function(){
 			switch(parseInput(0)){
 				case 1:
-					output.writeSlow(plr.name+"! Tis a name that will live on for generations!");
+					output.write(plr.name+"! Tis a name that will live on for generations!");
 					gameState = gameEvent.race.ask;
 					gameState();
 					break;
 				case 0:
-					output.writeSlow("I see. Well, what is your name then?");
+					output.write("I see. Well, what is your name then?");
 					gameState = gameEvent.name.get;
 					break;
 				case -1:
-					output.writeSlow("Is "+plr.name+" your name? YES or NO?");
+					output.write("Is "+plr.name+" your name? YES or NO?");
 					gameState = gameEvent.name.confirm;
 			}
 		}
 	},
 	race : {
 		ask : function(){
-			output.writeSlow("Well, "+plr.name+", err... what are you?");
-			output.write("1. Bunny  2. Human  3. Elf  4. None of your business!");
+			output.write("Well, "+plr.name+", err... what are you?");
+			output.write("1. Bunny  2. Human  3. Elf  4. None of your business!", 0);
 			gameState = gameEvent.race.get;
 		},
 		get : function(){
@@ -43,7 +43,7 @@ var gameEvent = {
 			];
 			switch(parseInput(3)){
 				case 1:
-					output.writeSlow("Ah, so you're a Bunny?");
+					output.write("Ah, so you're a Bunny?");
 					plr = new Char(char.bunny);
 					gameState = gameEvent.race.confirm;
 					break;

@@ -3,10 +3,11 @@ var gameState;
 var input = {
 	textBox : document.getElementById("input"),
 	get : function(e){
-		if (e.key === 'Enter') {
+		if (e.key === 'Enter' && output.isWriting == false) {
 			input.text = input.textBox.value;
 			input.textLower = input.textBox.value.toLowerCase();
-			output.write(input.text);
+			output.write(input.text, 0);
+			output.textBox.scrollTop = output.textBox.scrollHeight;
 			gameState();
 			input.clear();
 		}
@@ -18,31 +19,35 @@ var input = {
 
 var output = {
 	textBox : document.getElementById("output"),
-	write : function(text, doBreak){
-		if(doBreak != false){output.break();}
-		output.textBox.innerHTML += text;
-		output.textBox.scrollTop = output.textBox.scrollHeight;
-		
-	},
-	writeBuffer : "",
-	writeSlow : function(text, speed, doBreak){
-		if(doBreak != false){output.break();}
-		if(speed == null){
-			speed = 50;
-		}
-		writeBuffer = text;
-		slowWriter = setInterval(function(){
-			if(writeBuffer.length > 0){
-				output.textBox.innerHTML += writeBuffer.charAt(0);
+	writeBuffer : [],
+	write : function(text, speed = 50, doBreak = true){
+		output.writeBuffer.push(() => {
+			var writeLoop = setInterval(function(){
+				if(doBreak){
+					output.textBox.innerHTML += "<br/>";
+					doBreak = false;
+				}
+				output.textBox.innerHTML += text.charAt(0);
 				output.textBox.scrollTop = output.textBox.scrollHeight;
-				writeBuffer = writeBuffer.slice(1);
-			} else {
-				clearInterval(slowWriter);
-				console.log("here");
-			}
-		}, speed);
-		return true;
+				if(text.length == 1){
+					clearInterval(writeLoop);
+					if(output.writeBuffer.length > 1){
+						output.writeBuffer[1]();
+					} else {
+						output.isWriting = false;
+					}
+					output.writeBuffer.splice(0, 1);
+				} else {
+					text = text.slice(1);
+				}
+			}, speed)
+		});
+		if(output.isWriting == false){
+			output.isWriting = true;
+			output.writeBuffer[0]();
+		}
 	},
+	isWriting : false,
 	break : function(){
 		output.textBox.innerHTML += "<br/>";
 	},
