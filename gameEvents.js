@@ -2,7 +2,7 @@
 var gameEvent = {
 	name : {
 		ask : function(){
-			output.write("Greetings, Hero! What is your name?");
+			output.write("Greetings, Hero! What is your name?", 50, false);
 			gameState = gameEvent.name.get;
 		},
 		get : function(){
@@ -94,9 +94,16 @@ var gameEvent = {
 			switch(parseInput(0)){
 				case 1:
 					output.write("Then your journey begins!");
-					setTimeout(function(){
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					output.write(". . .", 150);
+					output.write(" ", 300);
+					window.setTimeout(function(){
 						gameEvent.enterCastle.start()
-					}, 7500);
+					}, 4000)
 					break;
 				case 0:
 					output.write("From the top then, shall we?");

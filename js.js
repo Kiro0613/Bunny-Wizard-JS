@@ -6,7 +6,7 @@ var input = {
 		if (e.key === 'Enter' && output.isWriting == false) {
 			input.text = input.textBox.value;
 			input.textLower = input.textBox.value.toLowerCase();
-			output.write(input.text, 0);
+			output.textBox.innerHTML += "<br/>"+input.text;
 			output.textBox.scrollTop = output.textBox.scrollHeight;
 			gameState();
 			input.clear();
@@ -20,16 +20,19 @@ var input = {
 var output = {
 	textBox : document.getElementById("output"),
 	writeBuffer : [],
-	write : function(text, speed = 50, doBreak = true){
+	write : function(text, speed = 20, doBreak = true){
 		output.writeBuffer.push(() => {
 			var writeLoop = setInterval(function(){
+				//Break line before writing
 				if(doBreak){
 					output.textBox.innerHTML += "<br/>";
 					doBreak = false;
 				}
+				//Write char to screen and autoscroll text window
 				output.textBox.innerHTML += text.charAt(0);
 				output.textBox.scrollTop = output.textBox.scrollHeight;
-				if(text.length == 1){
+				//Kill interval when last char printed OR slice first char from string
+				if(text.length <= 1){
 					clearInterval(writeLoop);
 					if(output.writeBuffer.length > 1){
 						output.writeBuffer[1]();
