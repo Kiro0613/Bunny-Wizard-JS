@@ -6,21 +6,29 @@ var input = {
 		if (e.key === 'Enter' && output.isWriting == false) {
 			input.text = input.textBox.value;
 			input.textLower = input.textBox.value.toLowerCase();
+			input.clear();
 			output.textBox.innerHTML += "<br/>"+input.text;
 			output.textBox.scrollTop = output.textBox.scrollHeight;
-			gameState();
-			input.clear();
+			
+			if(fireStatic){
+				fireEvent();
+			} else {
+				gameState();
+			}
 		}
 	},
 	text : "",
 	textLower : "",
-	clear : function(){input.textBox.value = "";}
+	clear : function(){input.textBox.value = "";},
+	has : function(list){
+		return list.indexOf(input.textLower) != -1;
+	}
 }
 
 var output = {
 	textBox : document.getElementById("output"),
 	writeBuffer : [],
-	write : function(text, speed = 20, doBreak = true){
+	write : function(text, speed = output.defaultSpeed, doBreak = true){
 		output.writeBuffer.push(() => {
 			var writeLoop = setInterval(function(){
 				//Break line before writing
@@ -51,6 +59,7 @@ var output = {
 		}
 	},
 	isWriting : false,
+	defaultSpeed : 20,
 	break : function(){
 		output.textBox.innerHTML += "<br/>";
 	},
@@ -67,11 +76,12 @@ var output = {
 input.textBox.addEventListener('keypress', function (e){input.get(e)});
 
 function changeRoomImg(imgSrc){
-	document.getElementById("roomImg").style.backgroundImage = "url('img/"+imgSrc+".png')";
+	document.getElementById("roomImg").style.backgroundImage = "url('"+imgSrc+"')";
 }
 
+var plrImg = document.getElementById("plrImg");
 function changePlrImg(imgSrc){
-	document.getElementById("plrImg").src = plr.img;
+	plrImg.src = plr.img;
 }
 
 function init(){
@@ -92,12 +102,12 @@ function Char(base){
 	this.int = base.int;
 	this.stl = base.stl;
 	this.img = base.img;
+	this.currentRoom = 3;
 	this.canMove = false;
 }
 
 var char = {
 	bunny : {
-		name : "",
 		race : "Bunny",
 		hp : 20,
 		mp : 15,
@@ -106,11 +116,9 @@ var char = {
 		spd : 5,
 		int : 8,
 		stl : 5,
-		img : "img/bunny_ph.png",
-		canMove : false
+		img : "img/bunny_ph.png"
 	},
 	human : {
-		name : "",
 		race : "Human",
 		hp : 25,
 		mp : 10,
@@ -119,11 +127,9 @@ var char = {
 		spd : 8,
 		int : 3,
 		stl : 4,
-		img : "img/human_ph.png",
-		canMove : false
+		img : "img/human_ph.png"
 	},
 	elf : {
-		name : "",
 		race : "Elf",
 		hp : 15,
 		mp : 20,
@@ -132,8 +138,7 @@ var char = {
 		spd : 4,
 		int : 5,
 		stl : 7,
-		img : "img/elf_ph.png",
-		canMove : false
+		img : "img/elf_ph.png"
 	}
 }
 
