@@ -7,26 +7,24 @@ var gameEvent = {
 			eventIndex = 1;
 			break;
 		case 1:	//Get name
-			action = input.parse(2);
-			plr.name = action;
+			plr.name = input.text;
 			output.write("Ah, so your name is "+plr.name+"?");
 			eventIndex = 2;
 			break;
 		case 2:	//Confirm name
-			switch(input.parse(0)){
-			case 1:	//Answer = YES
+			switch(input.parse(yn)){
+			case "yes":
 				output.write(plr.name+"! Tis a name that will live on for generations!");
 				gameState = gameEvent.race;
 				eventIndex = 0;
 				gameState();
 				break;
-			case 0:	//Answer = NO
+			case "no":
 				output.write("I see. Well, what is your name then?");
 				eventIndex = 1;
 				break;
-			case -1:	//Couldn't parse Y/N from input
+			default:
 				output.write("Is "+plr.name+" your name? YES or NO?");
-				break;
 			}
 		}
 	},
@@ -42,42 +40,42 @@ var gameEvent = {
 					["1","bunny","rabbit","bun"],
 					["2","human","person","homo sapien"],
 					["3","elf"],
-					["4","none of your business"]
+					["4","other","none of your business"]
 				];
-				switch(input.parse(3)){
-					case 1:	//Bunny?
+				switch(input.parse(choices)){
+					case "bunny":
 						plr = new Char(char.bunny);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
 						gameState();
 						break;
-					case 2:	//Human?
+					case "human":
 						plr = new Char(char.human);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
 						gameState();
 						break;
-					case 3:	//Elf?
+					case "elf":
 						plr = new Char(char.elf);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
 						gameState();
 						break;
-					case 4:	//Other
+					case "other":
 						output.write("Forgive my intrusion. What is it that you are called?")
 						plr = new Char(char.human);
 						eventIndex = 2;
 						break;
-					case -1:	//Could not parse
+					default:
 						output.write("I'm sorry. I don't understand.");
 						output.write("1. Bunny  2. Human  3. Elf  4. None of your business!");
 				}	//Parse answer
 				break;
 			case 2:	//Enter custom race (if needed)
-				plr.race = input.parse(2);
+				plr.race = input.text;
 				changePlrImg();
 				plrImg.style.visibility = "visible";
 				eventIndex = 3;
@@ -89,8 +87,8 @@ var gameEvent = {
 				eventIndex = 4;
 				break;
 			case 4:	//Parse if sure
-				switch(input.parse(0)){
-					case 1:
+				switch(input.parse(yn)){
+					case "yes":
 						output.write("Then your journey begins!");
 						output.write(" ", 300);
 						output.write(". . .", 150);
@@ -108,21 +106,19 @@ var gameEvent = {
 							gameState();
 						}, 4000)
 						break;
-					case 0:
+					case "no":
 						output.write("From the top then, shall we?");
 						plrImg.style.visibility = "hidden";
 						output.write("What is your name, Hero?");
 						gameState = gameEvent.name;
 						eventIndex = 1;
 						break;
-					case -1:
+					default:
 						output.write("You are "+plr.name+" the "+plr.race+", correct? YES or NO?");
 				}
-				break;
 		}
 	},
 	enterCastle : function(){
-		console.log("Here");
 		switch(eventIndex){
 			case 0:
 				staticEvent.put(0);
@@ -134,20 +130,6 @@ var gameEvent = {
 	}
 };
 
-var yesList = ["y", "ye", "yes", "yeah", "yea", "yep", "ya", "aye", "1"];
-var noList = ["n", "no", "nope", "nah", "0"];
-
-/* Game Event Template
-eventName : function(){
-	switch(eventIndex){
-		case 0:	//Ask
-			output.write("Ask text");
-			eventIndex = 1;
-			break;
-		case 1:	//Get
-			output.write("Do whatever");
-			eventIndex = 2;
-			break;
-		case 3:	//Do thing
-	}
-}*/
+var yesList = ["1", "yes", "y", "ye", "yeah", "yea", "yep", "ya", "aye"];
+var noList = ["0", "no", "n", "nope", "nah"];
+var yn = [yesList, noList];

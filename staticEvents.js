@@ -1,6 +1,5 @@
 var staticEvent = {
 	move : function(direction){
-		console.log("Here");
 		if(room.current.dir[direction] != -1){
 			room.current = room.map[room.current.dir[direction]];
 			changeRoomImg(room.current.img);
@@ -35,8 +34,7 @@ var staticEvent = {
 		["i", "inv", "inventory", "items", "bag"],
 		["o", "opt", "option", "options", "settings"],
 		["?", "help", "h"]
-	],
-	canFire : false
+	]
 }
 
 //Need this so input.parse can run staticEventArr[i] instead of long switch()
