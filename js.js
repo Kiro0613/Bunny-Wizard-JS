@@ -6,39 +6,21 @@ var input = {
 	textBox : document.getElementById("input"),
 	get : function(e){
 		if (e.key === 'Enter' && output.isWriting == false) {
-			input.text = input.textBox.value;input.textBox.value = "";
+			input.text = input.textBox.value;
+			input.textBox.value = "";
 			output.textBox.innerHTML += "<br/>"+input.text;
 			output.textBox.scrollTop = output.textBox.scrollHeight;
 			gameState();
 		}
 	},
 	text : "",
-	parse : function(type){
-		//Static events like move, inv, options, etc
-		if(staticEvent.canFire){
-			for(i = 0; i <= 6; i++){
-				if(input.has(staticEvent.list[i])){
-					return i <= 3 ? staticEventArr[i](i) : staticEventArr[i]();
-				}
+	parse : function(list){
+		for(i = 0; i < list.length; i++){
+			if(list[i].indexOf(input.text.toLowerCase()) != 1){
+				return list[i][1];
 			}
 		}
-		if(type == 0){
-			return input.has(yesList) ? 1 : input.has(noList) ? 0 : -1;
-		} else if(type == 1){
-			//Regex tests for int
-			return /^\d+$/g.test(input.text) ? input.text : -1;
-		} else if(type == 2){
-			return input.text;
-		} else if(type == 3){
-			for(i=0;i<choices.length;i++){
-				if(input.has(choices[i])){
-					return i+1;
-				}
-			}
-			return -1;
-		} else {
-			throw new Error("Game event has no input type");
-		}
+		return false;
 	},
 	has : function(list){
 		return list.indexOf(input.text.toLowerCase()) != -1;
