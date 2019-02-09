@@ -2,7 +2,7 @@ var staticEvent = {
 	move : function(direction){
 		console.log("Here");
 		if(room.current.dir[direction] != -1){
-			currentRoom = room.current.dir[direction];
+			room.current = room.map[room.current.dir[direction]];
 			changeRoomImg(room.current.img);
 			output.write("~~ "+room.current.name+" ~~", output.defaultSpeed);
 			output.write(room.current.enterText, output.defaultSpeed/2)

@@ -86,9 +86,8 @@ var output = {
 	clear : function(wipe){	//false: push text w/ <br/> - true: wipe all text
 		if(wipe){
 			output.textBox.innerHTML = "";
-			output.write("<br/><br/><br/><br/><br/>");
 		} else {
-			output.write("<br/><br/><br/><br/><br/><br/>");
+			output.textBox.innerHTML += "<br/><br/><br/><br/><br/><br/>";
 		}
 	}
 }
