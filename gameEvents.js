@@ -12,7 +12,7 @@ var gameEvent = {
 			eventIndex = 2;
 			break;
 		case 2:	//Confirm name
-			switch(input.parse(yn)){
+			switch(input.has(yn)){
 			case "yes":
 				output.write(plr.name+"! Tis a name that will live on for generations!");
 				gameState = gameEvent.race;
@@ -42,7 +42,7 @@ var gameEvent = {
 					["3","elf"],
 					["4","other","none of your business"]
 				];
-				switch(input.parse(choices)){
+				switch(input.has(choices)){
 					case "bunny":
 						plr = new Char(char.bunny);
 						changePlrImg();
@@ -87,7 +87,7 @@ var gameEvent = {
 				eventIndex = 4;
 				break;
 			case 4:	//Parse if sure
-				switch(input.parse(yn)){
+				switch(input.has(yn)){
 					case "yes":
 						output.write("Then your journey begins!");
 						output.write(" ", 300);

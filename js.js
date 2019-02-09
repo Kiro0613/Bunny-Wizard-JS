@@ -14,16 +14,21 @@ var input = {
 		}
 	},
 	text : "",
-	parse : function(list){
-		for(i = 0; i < list.length; i++){
-			if(list[i].indexOf(input.text.toLowerCase()) != 1){
-				return list[i][1];
+	parse : function(){
+		for(i = 0; i < staticEvent.list.length; i++){
+			if(staticEvent.list[i].indexOf(input.text.toLowerCase()) != -1){
+				return i < 4 ? staticEventArr[0](i) : staticEventArr[i-3]();
 			}
 		}
 		return false;
 	},
 	has : function(list){
-		return list.indexOf(input.text.toLowerCase()) != -1;
+		for(i = 0; i < list.length; i++){
+			if(list[i].indexOf(input.text.toLowerCase()) != -1){
+				return list[i][1];
+			}
+		}
+		return false;
 	}
 }
 

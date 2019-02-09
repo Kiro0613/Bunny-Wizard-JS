@@ -40,9 +40,6 @@ var staticEvent = {
 //Need this so input.parse can run staticEventArr[i] instead of long switch()
 staticEventArr = [
 	staticEvent.move,
-	staticEvent.move,
-	staticEvent.move,
-	staticEvent.move,
 	staticEvent.inv,
 	staticEvent.options,
 	staticEvent.help
