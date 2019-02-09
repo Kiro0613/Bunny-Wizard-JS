@@ -20,7 +20,8 @@
         </div>
     </body>
     
-    <script src="gameEvents.js"></script>
-    <script src="staticEvents.js"></script>
-    <script src="js.js"></script>
+    <script src="gameEvents.js"></script><!-- Events related to current state of game (e.g., char creation) -->
+    <script src="staticEvents.js"></script><!-- Events unrelated to game state (e.g., room navigation, menus) -->
+    <script src="roomEvents.js"></script><!-- Data about each room's events (e.g., search text, room-specific events) -->
+    <script src="js.js"></script><!-- Core game functionality (e.g., text i/o, parsing, image changing) -->
 </html>

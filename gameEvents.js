@@ -101,8 +101,11 @@ var gameEvent = {
 						output.write(" ", 300);
 						fireStatic = true;
 						window.setTimeout(function(){
+							staticEvent.canFire = true;
+							plr.canMove = true;
+							gameState = gameEvent.enterCastle;
 							eventIndex = 0;
-							gameEvent.enterCastle();
+							gameState();
 						}, 4000)
 						break;
 					case 0:
@@ -119,12 +122,14 @@ var gameEvent = {
 		}
 	},
 	enterCastle : function(){
+		console.log("Here");
 		switch(eventIndex){
 			case 0:
 				staticEvent.put(0);
-				staticEvent.canFire = true;
-				plr.canMove = true;
+				eventIndex = 1;
 				break;
+			case 1:
+				input.parse();
 		}
 	}
 };

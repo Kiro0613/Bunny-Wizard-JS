@@ -1,5 +1,6 @@
 var gameState;
 var eventIndex = 0;
+var currentRoom;
 
 var input = {
 	textBox : document.getElementById("input"),
@@ -121,9 +122,23 @@ function Char(base){
 	this.spd = base.spd;
 	this.int = base.int;
 	this.stl = base.stl;
+	this.sword = {
+		name : "None",
+		dmg : 0
+	};
+	this.shield = {
+		name : "None",
+		def : 0
+	};
+	
+	this.inv = [];
+	
 	this.img = base.img;
-	this.currentRoom = 3;
 	this.canMove = false;
+	
+	this.has = function(item){
+		return this.inv.indexOf(item) != -1;
+	}
 }
 
 var char = {
