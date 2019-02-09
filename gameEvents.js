@@ -133,18 +133,3 @@ var gameEvent = {
 var yesList = ["1", "yes", "y", "ye", "yeah", "yea", "yep", "ya", "aye"];
 var noList = ["0", "no", "n", "nope", "nah"];
 var yn = [yesList, noList];
-
-/* Game Event Template
-eventName : function(){
-	switch(eventIndex){
-		case 0:	//Ask
-			output.write("Ask text");
-			eventIndex = 1;
-			break;
-		case 1:	//Get
-			output.write("Do whatever");
-			eventIndex = 2;
-			break;
-		case 3:	//Do thing
-	}
-}*/
