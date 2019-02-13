@@ -1,28 +1,30 @@
 var gameState;
 var eventIndex = 0;
-var currentRoom;
 
 var input = {
 	textBox : document.getElementById("input"),
 	get : function(e){
 		if (e.key === 'Enter' && output.isWriting == false) {
 			input.text = input.textBox.value;
+			var prepositions = ["to","at","the","this","by"];
+			input.textSplit = [];
+			input.text.split(" ").forEach(function(v){
+				v = v.toLowerCase();
+				if(prepositions.indexOf(v) == -1){
+					input.textSplit.push(v)
+				}
+			})
+			
 			input.textBox.value = "";
 			output.textBox.innerHTML += "<br/>"+input.text;
 			output.textBox.scrollTop = output.textBox.scrollHeight;
+			
 			gameState();
 		}
 	},
 	text : "",
-	parse : function(){
-		for(i = 0; i < staticEvent.list.length; i++){
-			if(staticEvent.list[i].indexOf(input.text.toLowerCase()) != -1){
-				return i < 4 ? staticEventArr[0](i) : staticEventArr[i-3]();
-			}
-		}
-		return false;
-	},
-	has : function(list){
+	textSplit : [],
+	parse : function(list){
 		for(i = 0; i < list.length; i++){
 			if(list[i].indexOf(input.text.toLowerCase()) != -1){
 				return list[i][1];
@@ -66,7 +68,7 @@ var output = {
 		}
 	},
 	isWriting : false,
-	defaultSpeed : 15,
+	defaultSpeed : 10,
 	break : function(){
 		output.textBox.innerHTML += "<br/>";
 	},

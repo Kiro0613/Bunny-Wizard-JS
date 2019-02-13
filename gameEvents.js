@@ -12,7 +12,7 @@ var gameEvent = {
 			eventIndex = 2;
 			break;
 		case 2:	//Confirm name
-			switch(input.has(yn)){
+			switch(input.parse(yn)){
 			case "yes":
 				output.write(plr.name+"! Tis a name that will live on for generations!");
 				gameState = gameEvent.race;
@@ -42,7 +42,7 @@ var gameEvent = {
 					["3","elf"],
 					["4","other","none of your business"]
 				];
-				switch(input.has(choices)){
+				switch(input.parse(choices)){
 					case "bunny":
 						plr = new Char(char.bunny);
 						changePlrImg();
@@ -87,24 +87,25 @@ var gameEvent = {
 				eventIndex = 4;
 				break;
 			case 4:	//Parse if sure
-				switch(input.has(yn)){
+				switch(input.parse(yn)){
 					case "yes":
 						output.write("Then your journey begins!");
-						output.write(" ", 300);
-						output.write(". . .", 150);
-						output.write(" ", 300);
-						output.write(". . .", 150);
-						output.write(" ", 300);
-						output.write(". . .", 150);
-						output.write(" ", 300);
+						output.write(" ", output.defaultSpeed*3);
+						output.write(". . .", output.defaultSpeed*2);
+						output.write(" ", output.defaultSpeed*3);
+						output.write(". . .", output.defaultSpeed*2);
+						output.write(" ", output.defaultSpeed*3);
+						output.write(". . .", output.defaultSpeed*2);
+						output.write(" ", output.defaultSpeed*3);
 						fireStatic = true;
 						window.setTimeout(function(){
 							staticEvent.canFire = true;
 							plr.canMove = true;
+							room.current = room.map[3];
 							gameState = gameEvent.enterCastle;
 							eventIndex = 0;
 							gameState();
-						}, 4000)
+						}, output.defaultSpeed*18)
 						break;
 					case "no":
 						output.write("From the top then, shall we?");
@@ -121,11 +122,11 @@ var gameEvent = {
 	enterCastle : function(){
 		switch(eventIndex){
 			case 0:
-				staticEvent.put(0);
+				staticEvent.move(2);
 				eventIndex = 1;
 				break;
 			case 1:
-				input.parse();
+				staticEvent.parse();
 		}
 	}
 };

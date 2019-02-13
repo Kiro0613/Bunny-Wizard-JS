@@ -1,19 +1,24 @@
 var staticEvent = {
 	move : function(direction){
-		if(room.current.dir[direction] != -1){
-			room.current = room.map[room.current.dir[direction]];
-			changeRoomImg(room.current.img);
-			output.write("~~ "+room.current.name+" ~~", output.defaultSpeed);
-			output.write(room.current.enterText, output.defaultSpeed/2)
+		newRoom = room.current.dir[direction];
+		
+		if(newRoom.id == -1){
+			output.write("Cannot go this direction.");
+			return;
+		} else if(newRoom.isLocked){
+			output.write("The door is locked.")
+			return;
 		} else {
-			output.write("Cannot go this direction.")
+			room.current = room.map[newRoom.id];
+			changeRoomImg(room.current.img);
+			room.current.enter();
 		}
 	},
-	put : function(id){
-		room.current = room.map[id];
-		changeRoomImg(room.current.img);
-		output.write("~~ "+room.current.name+" ~~", output.defaultSpeed);
-		output.write(room.current.enterText, output.defaultSpeed/2)
+	search : function(){
+		output.write("Searched room");
+	},
+	look : function(){
+		output.write("Looked at thing");
 	},
 	inv : function(){
 		output.write("~~ Inventory ~~");
@@ -25,21 +30,38 @@ var staticEvent = {
 	},
 	help : function(){
 		output.write("~~ Help ~~");
+		output.write("Movement: N, E, S, W");
+		output.write("INV for inventory. (Equipment equipped automatically.)");
+		output.write("OPT for options.");
+		output.write("*all commands not case-sensitive");
 	},
 	list : [
-		["n", "north", "forward", "forwards"],
-		["e", "east", "right"],
-		["s", "south", "back", "backward", "backwards"],
-		["w", "west", "left", "weest"],
-		["i", "inv", "inventory", "items", "bag"],
-		["o", "opt", "option", "options", "settings"],
-		["?", "help", "h"]
-	]
+		[function(){staticEvent.move(0)}, "n", "north", "forward", "forwards"],
+		[function(){staticEvent.move(1)}, "e", "east", "right"],
+		[function(){staticEvent.move(2)}, "s", "south", "back", "backward", "backwards"],
+		[function(){staticEvent.move(3)}, "w", "west", "left", "weest"],
+		[function(){staticEvent.search()}, "sr", "search", "search room", "serch"],
+		[function(){staticEvent.look()}, "l", "look", "look at", "lk"],
+		[function(){staticEvent.inv()}, "i", "inv", "inventory", "items", "bag"],
+		[function(){staticEvent.options()}, "o", "opt", "option", "options", "settings"],
+		[function(){staticEvent.help()}, "?", "help", "h"]
+	],
+	parse : function(){
+		for(i = 0; i < staticEvent.list.length; i++){
+			if(staticEvent.list[i].indexOf(input.text.toLowerCase()) != -1){
+				return staticEvent.list[i][0]();
+			}
+		}
+		output.write("I don't understand. (? for help)")
+		return false;
+	},
 }
 
 //Need this so input.parse can run staticEventArr[i] instead of long switch()
 staticEventArr = [
 	staticEvent.move,
+	staticEvent.search,
+	staticEvent.look,
 	staticEvent.inv,
 	staticEvent.options,
 	staticEvent.help
