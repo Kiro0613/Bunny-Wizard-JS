@@ -15,7 +15,21 @@ var staticEvent = {
 		}
 	},
 	search : function(){
-		output.write("Searched room");
+		if(room.current.items == null){
+			output.write("Couldn't find anything.");
+		} else {
+			output.write("Found:");
+			room.current.items.forEach(function(v){output.write(v)});
+		}
+	},
+	take : function(item){
+		if(item == undefined){
+			output.write("To TAKE, say TAKE (ITEM)");
+		} else if(item == "key"){
+			output.write("Took the key.");
+			room.current.items = null;
+			plr.items.push("key");
+		}
 	},
 	look : function(){
 		output.write("Looked at thing");
@@ -41,6 +55,7 @@ var staticEvent = {
 		[function(){staticEvent.move(2)}, "s", "south", "back", "backward", "backwards"],
 		[function(){staticEvent.move(3)}, "w", "west", "left", "weest"],
 		[function(){staticEvent.search()}, "sr", "search", "search room", "serch"],
+		[function(){staticEvent.take(input.textSplit[1])}, "t", "take", "grab", "pickup", "pick"],
 		[function(){staticEvent.look()}, "l", "look", "look at", "lk"],
 		[function(){staticEvent.inv()}, "i", "inv", "inventory", "items", "bag"],
 		[function(){staticEvent.options()}, "o", "opt", "option", "options", "settings"],
@@ -48,7 +63,7 @@ var staticEvent = {
 	],
 	parse : function(){
 		for(i = 0; i < staticEvent.list.length; i++){
-			if(staticEvent.list[i].indexOf(input.text.toLowerCase()) != -1){
+			if(staticEvent.list[i].has(input.text.toLowerCase())){
 				return staticEvent.list[i][0]();
 			}
 		}

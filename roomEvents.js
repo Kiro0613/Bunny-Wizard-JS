@@ -8,12 +8,13 @@ var room = {
 				{id : 3, isLocked : false},
 				{id : -1},
 				{id : -1},
-				{id : -1}
+				{id : -1},
 			],
 			timesEntered : 0,
 			enterText : "You stand outside the fortress of the dreaded Iceberg Dragon. The mouth of the cave is to the NORTH.",
-			lookText : "It is a room."
-			search : function(){room.defaultSearch();}
+			lookText : "It is a room.",
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Armory",			//1
@@ -23,12 +24,13 @@ var room = {
 				{id : 6, isLocked : false},
 				{id : 2, isLocked : false},
 				{id : -1},
-				{id : -1}
+				{id : -1},
 			],
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Barracks",			//2
@@ -43,7 +45,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Courtyard",			//3
@@ -58,7 +61,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : ["Key under mat"]
 		},
 		{
 			name : "Cavern",			//4
@@ -73,7 +77,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Spike Pit",			//5
@@ -88,7 +93,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Lvl. 1 Storage",	//6
@@ -103,7 +109,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Dining Room",		//7
@@ -118,7 +125,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Foyer",				//8
@@ -132,8 +140,9 @@ var room = {
 			],
 			timesEntered : 0,
 			enterText : "Room Enter Text",
-			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			lookText : "It's a grand hall connecting most parts of the castle. There is a staircase.",
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Kitchen",			//9
@@ -148,7 +157,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Guard Tower",		//10
@@ -163,7 +173,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Library - Level 1",	//11
@@ -178,7 +189,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "West Hall",			//12
@@ -193,7 +205,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Parlor",			//13
@@ -208,7 +221,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Garden - West",		//14
@@ -223,7 +237,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Garden - East",		//15
@@ -238,7 +253,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Servant Quarters",	//16
@@ -253,7 +269,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Terrarium",			//17
@@ -268,7 +285,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		},
 		{
 			name : "Farmer Quarters",	//18
@@ -283,7 +301,8 @@ var room = {
 			timesEntered : 0,
 			enterText : "Room Enter Text",
 			lookText : "It is a room.",
-			search : function(){room.defaultSearch();}
+			searchText : "Couldn't find anything.",
+			items : null
 		}
 	],
 	current : null,
@@ -293,8 +312,5 @@ var room = {
 			output.write(room.current.enterText);
 		}
 		room.current.timesEntered++;
-	},
-	defaultSearch : function(){
-		output.write("Couldn't find anything.")
 	}
 }

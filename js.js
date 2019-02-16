@@ -1,3 +1,7 @@
+Array.prototype.has = function(item, returnIndex = false){
+	return this.indexOf(item) == -1 ? false : returnIndex ? this.indexOf(item) : true;
+}
+
 var gameState;
 var eventIndex = 0;
 
@@ -6,7 +10,7 @@ var input = {
 	get : function(e){
 		if (e.key === 'Enter' && output.isWriting == false) {
 			input.text = input.textBox.value;
-			var prepositions = ["to","at","the","this","by"];
+			var prepositions = ["to","at","the","this","by","up","go"];
 			input.textSplit = [];
 			input.text.split(" ").forEach(function(v){
 				v = v.toLowerCase();
@@ -26,7 +30,7 @@ var input = {
 	textSplit : [],
 	parse : function(list){
 		for(i = 0; i < list.length; i++){
-			if(list[i].indexOf(input.text.toLowerCase()) != -1){
+			if(list[i].has(input.textSplit[0])){
 				return list[i][1];
 			}
 		}
