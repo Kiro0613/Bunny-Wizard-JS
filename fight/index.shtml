@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bunny Wizard</title>
+        <link href="css.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    </head>
+    
+    <body onload="init()">
+        <div id="pageHeader" style="margin: 16px; margin-bottom: 24px;">JOLGames: Bunny Wizard</div>
+        <div id="gameWrapper" class="wrapper" style="width: 800px; height: 520px;">
+            <div id="roomImg" style="width: 800px; height: 325px; min-height: 325px;">
+                <img id="plrImg" style="width: 800px; height: 325px;">
+            </div>
+            <div id="textbox" class="wrapper">
+                <div id="output" style="background-color: #EEEEEE; overflow-y: scroll;">
+				</div>
+                <input id="input" type="text">
+            </div>
+        </div>
+    </body>
+    
+    <script src="gameEvents.js"></script><!-- Events related to current state of game (e.g., char creation) -->
+    <script src="staticEvents.js"></script><!-- Events unrelated to game state (e.g., room navigation, menus) -->
+    <script src="roomEvents.js"></script><!-- Data about each room's events (e.g., search text, room-specific events) -->
+    <script src="js.js"></script><!-- Core game functionality (e.g., text i/o, parsing, image changing) -->
+</html>

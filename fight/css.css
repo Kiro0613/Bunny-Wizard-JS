@@ -1,0 +1,29 @@
+html{
+    font-family: 'Aclonica';
+    font-size: 16px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    background-color: burlywood;
+    align-items: center;
+    margin: auto;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+	justify-content: space-between;
+}
+
+input{
+	font-family: Aclonica;
+	font-size: 18px;
+	padding-top: 2px;
+}
+
+#gameWrapper{
+    background-color: #EEEEEE;
+    border: 2px solid #303030;
+}
