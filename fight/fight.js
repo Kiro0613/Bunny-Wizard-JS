@@ -1,0 +1,5 @@
+var fight = {
+	start : function(){
+		
+	}
+}

@@ -23,5 +23,7 @@
     <script src="gameEvents.js"></script><!-- Events related to current state of game (e.g., char creation) -->
     <script src="staticEvents.js"></script><!-- Events unrelated to game state (e.g., room navigation, menus) -->
     <script src="roomEvents.js"></script><!-- Data about each room's events (e.g., search text, room-specific events) -->
+    <script src="char.js"></script><!-- Data for player and NPC state and creation -->
+    <script src="fight.js"></script><!-- Routines for combat -->
     <script src="js.js"></script><!-- Core game functionality (e.g., text i/o, parsing, image changing) -->
 </html>
