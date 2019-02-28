@@ -25,7 +25,7 @@ function Char(base){
 	this.canMove = false;
 }
 
-var char = {
+var charBase = {
 	bunny : {
 		race : "Bunny",
 		hp : 20,
@@ -58,6 +58,17 @@ var char = {
 		int : 5,
 		stl : 7,
 		img : "img/elf_ph.png"
+	},
+	enemy : {
+		race : "Enemy",
+		hp : 25,
+		mp : 10,
+		atk: 6,
+		def : 2,
+		spd : 8,
+		int : 3,
+		stl : 4,
+		img : "img/human_ph.png"
 	}
 }
 

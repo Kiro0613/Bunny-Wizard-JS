@@ -96,4 +96,5 @@ function init(){
 	input.textBox.focus();
 	gameState = gameEvent.name;
 	gameState();
+	fight.start();
 }

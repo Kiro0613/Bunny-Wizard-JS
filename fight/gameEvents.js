@@ -44,21 +44,21 @@ var gameEvent = {
 				];
 				switch(input.parse(choices)){
 					case "bunny":
-						plr = new Char(char.bunny);
+						plr = new Char(charBase.bunny);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
 						gameState();
 						break;
 					case "human":
-						plr = new Char(char.human);
+						plr = new Char(charBase.human);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
 						gameState();
 						break;
 					case "elf":
-						plr = new Char(char.elf);
+						plr = new Char(charBase.elf);
 						changePlrImg();
 						plrImg.style.visibility = "visible";
 						eventIndex = 3;
@@ -66,7 +66,7 @@ var gameEvent = {
 						break;
 					case "other":
 						output.write("Forgive my intrusion. What is it that you are called?")
-						plr = new Char(char.human);
+						plr = new Char(charBase.human);
 						eventIndex = 2;
 						break;
 					default:
